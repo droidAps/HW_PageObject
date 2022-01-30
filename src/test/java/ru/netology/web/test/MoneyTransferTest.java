@@ -8,7 +8,6 @@ import ru.netology.web.page.LoginPage;
 
 import static com.codeborne.selenide.Selenide.*;
 import static org.junit.jupiter.api.Assertions.*;
-import static ru.netology.web.data.DataHelper.defaultCardsBalance;
 
 public class MoneyTransferTest {
 
@@ -25,7 +24,7 @@ public class MoneyTransferTest {
         var verificationPage = loginPage.validLogin(authInfo);
         var verificationCode = DataHelper.getVerificationCodeFor(authInfo);
         var dashboardPage = verificationPage.validVerify(verificationCode);
-        defaultCardsBalance();
+        CleanAfterTest.returnInitialCardsBalance();
     }
 
     @Test

@@ -40,19 +40,4 @@ public class DataHelper {
     public static CardInfo getSecondCardInfo() {
         return new CardInfo(2, "5559 0000 0000 0002", 10000);
     }
-
-    public static void defaultCardsBalance() {
-        var dashboardPage = new DashboardPage();
-        var firstCardBalance = dashboardPage.getCardBalance(DataHelper.getFirstCardInfo());
-        var secondCardBalance = dashboardPage.getCardBalance(DataHelper.getSecondCardInfo());
-        if (firstCardBalance == secondCardBalance) {
-            return;
-        } else if (firstCardBalance > secondCardBalance) {
-            int diff = (firstCardBalance - secondCardBalance) / 2;
-            dashboardPage.topUpTheBalance(DataHelper.getFirstCardInfo(), DataHelper.getSecondCardInfo(), diff);
-        } else {
-            int diff = (secondCardBalance - firstCardBalance) / 2;
-            dashboardPage.topUpTheBalance(DataHelper.getSecondCardInfo(), DataHelper.getFirstCardInfo(), diff);
-        }
-    }
 }
