@@ -42,11 +42,18 @@ public class MoneyTransferTest {
         // перевод средств
         var firstCardInfo = DataHelper.getFirstCardInfo();
         var secondCardInfo = DataHelper.getSecondCardInfo();
-        dashboardPage.topUpTheBalance(firstCardInfo, secondCardInfo, transferAmount);
+        var replenishmentPage = dashboardPage.clickCardButton(secondCardInfo);
+        replenishmentPage.topUpTheBalanceFrom(firstCardInfo, transferAmount);
 
         // проверка баланса карт
-        int expected = dashboardPage.getCardBalance(secondCardInfo);
-        int actual = dashboardPage.getCardBalance(firstCardInfo) + transferAmount * 2;
-        assertEquals(expected, actual);
+        int expectedFirstCard = dashboardPage.getCardBalance(firstCardInfo);
+        int expectedSecondCard = dashboardPage.getCardBalance(secondCardInfo);
+        int[] expected = {expectedFirstCard, expectedSecondCard};
+
+        int actualFirstCard = DataHelper.getFirstCardInfo().getInitialBalance() - transferAmount;
+        int actualSecondCard = DataHelper.getSecondCardInfo().getInitialBalance() + transferAmount;
+        int[] actual = {actualFirstCard, actualSecondCard};
+
+        assertArrayEquals(expected, actual);
     }
 }
